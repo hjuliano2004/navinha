@@ -1,39 +1,43 @@
-import { nave } from "../main.js";
+import { altura, asaDireita, asaEsquerda, largura, nave, ponta } from "../main.js";
+import { velMaxima } from "../utils/controle.js";
 
 export let vertical = { valor: 0, execussao: null };
 export let horizontal = { valor: 0, execussao: null };
 
+const atrito = 5;
+
 
 function inercia() {
-    // aplica atrito horizontal
-    if (horizontal.valor > 0) {
-        horizontal.valor -= 0.1; // reduz fixo
-        if (horizontal.valor < 0) horizontal.valor = 0;
-    } else if (horizontal.valor < 0) {
-        horizontal.valor += 0.1;
-        if (horizontal.valor > 0) horizontal.valor = 0;
-    }
 
-    // aplica atrito vertical
+  if (horizontal.valor > 0) {
+    horizontal.valor -= (horizontal.valor / 100) * atrito;
+  }
+
+  if (horizontal.valor < 0) {
+    horizontal.valor -= (horizontal.valor / 100) * atrito;
+  }
+
     if (vertical.valor > 0) {
-        vertical.valor -= 0.1;
-        if (vertical.valor < 0) vertical.valor = 0;
-    } else if (vertical.valor < 0) {
-        vertical.valor += 0.1;
-        if (vertical.valor > 0) vertical.valor = 0;
-    }
+    vertical.valor -= (vertical.valor / 100) * atrito;
+  }
+
+  if (vertical.valor < 0) {
+    vertical.valor -= (vertical.valor / 100) * atrito;
+  }
+   
 }
+
 
 
 export function fisica() {
 
     let corpo = nave.getCorpo();
 
-    console.log(horizontal.valor);
-
     setInterval(() => {
 
-        //inercia();
+
+        inercia();
+        colisaoLimites();
 
         for (let i = 0; i < corpo.length; i++) {
             for (let j = 0; j < corpo[i].length; j++) {
@@ -45,4 +49,24 @@ export function fisica() {
 
     }, 1000 / 60);
 
+}
+
+function colisaoLimites(){
+
+        if(asaDireita.x + horizontal.valor >= largura + 50) {
+            horizontal.valor = -velMaxima / 2;
+        }
+
+
+        if(asaEsquerda.x + horizontal.valor <= 0 - 50){
+            horizontal.valor = velMaxima / 2;
+        }
+
+        if(ponta.y + vertical.valor <= 0 - 50){
+            vertical.valor = velMaxima / 2;
+        }
+
+        if((ponta.y + vertical.valor) + 100 >= altura + 50){
+            vertical.valor = -velMaxima / 2;
+        }
 }

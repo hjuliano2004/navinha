@@ -1,58 +1,63 @@
 import { nave } from "../main.js";
 import { horizontal } from "../fisica/movimentação.js";
+import { vertical } from "../fisica/movimentação.js";
 
-
-
-/*function direita() {
-
-    let corpo = nave.getCorpo();
-    for (let i = 0; i < corpo.length; i++) {
-        for (let j = 0; j < corpo[i].length; j++) {
-            corpo[i][j].x += 15;
-        }
-    }
-}*/
+const aceleracao = 1;
+export const velMaxima = 20;
 
 export function direita() {
    
 
     if (horizontal.execussao === null) { // só cria se não existir
-         console.log("recebendo comando de movimentação para direita");
+
         horizontal.execussao = setInterval(() => {
-            if (horizontal.valor < 100) {
-                horizontal.valor += 0.5;
+            if (horizontal.valor < velMaxima) {
+                horizontal.valor += aceleracao;
+            }
+        }, 1000 / 60);
+    }
+}
+
+export function esquerda() {
+   
+
+    if (horizontal.execussao === null) { // só cria se não existir
+
+        horizontal.execussao = setInterval(() => {
+            if (horizontal.valor > -velMaxima) {
+                horizontal.valor -= aceleracao;
+            }
+        }, 1000 / 60);
+    }
+}
+
+export function cima() {
+   
+
+    if (vertical.execussao === null) { // só cria se não existir
+
+        vertical.execussao = setInterval(() => {
+            if (vertical.valor > -velMaxima) {
+                vertical.valor -= aceleracao;
+            }
+        }, 1000 / 60);
+    }
+}
+
+export function baixo() {
+   
+
+    if (vertical.execussao === null) { // só cria se não existir
+
+        vertical.execussao = setInterval(() => {
+            if (vertical.valor < velMaxima) {
+                vertical.valor += aceleracao;
             }
         }, 1000 / 60);
     }
 }
 
 
-function esquerda() {
-    let corpo = nave.getCorpo();
-    for (let i = 0; i < corpo.length; i++) {
-        for (let j = 0; j < corpo[i].length; j++) {
-            corpo[i][j].x -= 15;
-        }
-    }
-}
-
-function cima() {
-    let corpo = nave.getCorpo();
-    for (let i = 0; i < corpo.length; i++) {
-        for (let j = 0; j < corpo[i].length; j++) {
-            corpo[i][j].y -= 15;
-        }
-    }
-}
-
-function baixo() {
-    let corpo = nave.getCorpo();
-    for (let i = 0; i < corpo.length; i++) {
-        for (let j = 0; j < corpo[i].length; j++) {
-            corpo[i][j].y += 15;
-        }
-    }
-}
 
 export let controle = {
     orizontal: function () {
@@ -85,9 +90,11 @@ export let controle = {
             }
         });
     },
+ 
+};
 
-    soltar: function (){
-        window.addEventListener("keyup", (event) => {
+export function soltar(){
+            window.addEventListener("keyup", (event) => {
             switch (event.key) {
                 case "ArrowUp":
                     clearInterval(vertical.execussao);
@@ -99,6 +106,7 @@ export let controle = {
                     break;
                 case "ArrowLeft":
                     clearInterval(horizontal.execussao);
+                    
                     horizontal.execussao = null;
                     break;
                 case "ArrowRight":
@@ -107,6 +115,4 @@ export let controle = {
                     break;
             }
         });
-    }   
-};
-
+}

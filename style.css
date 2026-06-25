@@ -1,8 +1,17 @@
 body{
-    background-color: black;
-    text-align: center;
+    background-color: rgb(27, 27, 27);
 }
 
-canvas{
-    background-color: #111111;
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#fundo {
+  z-index: 0;
+}
+
+#display {
+  z-index: 1;
 }
