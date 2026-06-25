@@ -6,9 +6,12 @@ import { flutuacao } from "./fisica/flutuacao.js";
 import { fisica } from "./fisica/movimentação.js";
 import { soltar } from "./utils/controle.js";
 import { horizontal } from "./fisica/movimentação.js";
+import { rendLista, laser, moveLaser } from "./models/canhao.js";
 
 let canvas = document.getElementById("display");
 let fundo =  document.getElementById("fundo");
+export let velocidade = document.getElementById("velocidade");
+
 export let ctx = canvas.getContext("2d");
 export let ctxFundo = fundo.getContext("2d");
 export let tamanho = 15;
@@ -53,16 +56,13 @@ controle.orizontal();
 controle.vertical();
 soltar();
 
-
-
-
-
 let loop = setInterval(() => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    
+    rendLista();
     nave.desenhar();
     ctx.drawImage(naveImg, nave.getCorpo()[0][0].x - (tamanho * 4.3), nave.getCorpo()[0][0].y, 145, 125);
 }, 1000 / 60);
 
 flutuacao();
 fisica();
+moveLaser();
