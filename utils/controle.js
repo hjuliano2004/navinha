@@ -84,9 +84,11 @@ export let controle = {
         window.addEventListener("keydown", (event) => {
             switch (event.key) {
                 case "ArrowLeft":
+                case "a".toLocaleLowerCase():
                     esquerda();
                     break;
                 case "ArrowRight":
+                case "d".toLocaleLowerCase():
 
 
                     direita();
@@ -102,13 +104,16 @@ export let controle = {
         window.addEventListener("keydown", (event) => {
             switch (event.key) {
                 case "ArrowUp":
+                case "w".toLocaleLowerCase():
                     cima();
                     break;
                 case "ArrowDown":
+                case "s".toLocaleLowerCase():
                     baixo();
                     break;
                 case " ":
-                case"Space":
+                case "Space":
+                case "x".toLocaleLowerCase():
                     disparo();
                     break;
             }
@@ -121,24 +126,29 @@ export function soltar() {
     window.addEventListener("keyup", (event) => {
         switch (event.key) {
             case "ArrowUp":
+            case "w".toLocaleLowerCase():
                 clearInterval(vertical.execussao);
                 vertical.execussao = null;
                 break;
             case "ArrowDown":
+            case "s".toLocaleLowerCase():
                 clearInterval(vertical.execussao);
                 vertical.execussao = null;
                 break;
             case "ArrowLeft":
+            case "a".toLocaleLowerCase():
                 clearInterval(horizontal.execussao);
 
                 horizontal.execussao = null;
                 break;
             case "ArrowRight":
+            case "d".toLocaleLowerCase():
                 clearInterval(horizontal.execussao);
                 horizontal.execussao = null;
                 break;
             case " ":
-            case"Space":
+            case "Space":
+            case "x".toLocaleLowerCase():
                 clearInterval(atirador.disparador);
                 atirador.disparador = null;
                 bloqueio = true;

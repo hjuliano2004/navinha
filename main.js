@@ -7,6 +7,8 @@ import { fisica } from "./fisica/movimentação.js";
 import { soltar } from "./utils/controle.js";
 import { horizontal } from "./fisica/movimentação.js";
 import { rendLista, laser, moveLaser } from "./models/canhao.js";
+import { enemyFactory, inimigos, rendInimigos} from "./models/inimigo.js";
+import { renderList2D } from "./utils/render.js";
 
 let canvas = document.getElementById("display");
 let fundo =  document.getElementById("fundo");
@@ -17,6 +19,8 @@ export let ctxFundo = fundo.getContext("2d");
 export let tamanho = 15;
 
 export let nave = Nave();
+
+let inimigo = enemyFactory(0);
 
 export const asaDireita  = nave.getCorpo()[6][7];
 export const asaEsquerda = nave.getCorpo()[6][0];
@@ -48,9 +52,6 @@ let imgFundo = espiral();
         ctxFundo.drawImage(imgFundo, 0, 0, largura, altura);
     }
 
-    
-
-
 nave.desenhar();
 controle.orizontal();
 controle.vertical();
@@ -59,7 +60,10 @@ soltar();
 let loop = setInterval(() => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     rendLista();
-    nave.desenhar();
+    //nave.desenhar();
+    //renderList2D(inimigo.getCorpo());
+    rendInimigos()
+    
     ctx.drawImage(naveImg, nave.getCorpo()[0][0].x - (tamanho * 4.3), nave.getCorpo()[0][0].y, 145, 125);
 }, 1000 / 60);
 
