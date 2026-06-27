@@ -1,4 +1,4 @@
-import { ctx, nave } from "../main.js";
+import { ctx, nave, velocidade } from "../main.js";
 
 let lista = [];
 
@@ -24,8 +24,8 @@ export function rendLista(){
     for(let i=0;i<lista.length;i++){
 
     ctx.beginPath();
-    ctx.moveTo(lista[i].x, lista[i].y);//a linha inicia aqui
-    ctx.lineTo(lista[i].x, lista[i].y + lista[i].cump);//a linha termina aqui
+    ctx.moveTo(lista[i].x + 10, lista[i].y);//a linha inicia aqui
+    ctx.lineTo(lista[i].x + 10, lista[i].y + lista[i].cump);//a linha termina aqui
     ctx.strokeStyle = lista[i].cor;
     ctx.lineWidth = "5";
     ctx.stroke();
@@ -48,6 +48,5 @@ export function moveLaser(){
             }
         }
 
-
-    }, 1000 / 60);
+    }, 1000 / 120);
 }

@@ -7,3 +7,12 @@ export function espiral(){
 
     return img;
 }
+
+export function blindadoImg(){
+    let img = new Image();
+    img.src = "./imgs/blindado.png";
+
+    img.onload = function(){}
+
+    return img;
+}
